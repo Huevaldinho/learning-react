@@ -6,7 +6,7 @@ function TaskCard({ task }) {
   /*
     task={title:value,description:value,id:value}
   */
-  const { deleteTask } = useContext(TaskContext);
+  const { deleteTask } = useContext(TaskContext);//para eliminar tarea
   return (
     <div className="bg-gray-800 text-white p-4 rounded-md">
       <h1 className="text-xl font-bold capitalize">{task.title}</h1>
