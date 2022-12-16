@@ -26,6 +26,7 @@ export function TaskContextProvider(props) {
   }
 
   function editTask({ id, title, description }) {
+    //...task hace merge de title y descripcion, asi se actualiza
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
