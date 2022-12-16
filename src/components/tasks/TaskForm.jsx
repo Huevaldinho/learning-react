@@ -15,8 +15,9 @@ function TaskForm() {
     setDescription("");
   };
 
+
   return (
-    <div className="max-w-md mx-auto bg-slate-800 m-10 ">
+    <div className="max-w-md mx-auto bg-slate-800 m-10 rounded-lg">
       <form className="pt-10 pb-1 pr-10 pl-10 mb-4" onSubmit={handleSubmit}>
         <h1 className="text-2xl font-bold text-white mb-3">Crea tu tarea</h1>
         <input
