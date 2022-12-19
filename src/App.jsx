@@ -1,15 +1,10 @@
-import TaskList from "./components/tasks/TaskList";
-import TaskForm from "./components/tasks/TaskForm";
-
+import Router  from "./components/routes/Router";
 
 function App() {
   return (
-    <main className="bg-zinc-900 h-screen">
-      <div className="container mx-auto p-10">
-        <TaskForm />
-        <TaskList />
-      </div>
-    </main>
+    <>
+      <Router/>
+    </>
   );
 }
 export default App;
