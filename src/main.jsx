@@ -13,8 +13,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 
 /*
+Pasos para correr este proyecto:
+* npm run dev
+
 Pasos para instalar este proyecto en otra pc
-1) Clonar el repo: git clone https://github.com/Huevaldinho/learning-react.git
-2) Instalar npm modules: Abrir el proyecto: npm install
-3) Listo: npm run dev
+* Clonar el repo: git clone https://github.com/Huevaldinho/learning-react.git
+* Instalar npm modules. Abrir el proyecto: npm install
+* Listo: npm run dev
 */
