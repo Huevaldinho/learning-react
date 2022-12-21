@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 function NotFound() {
-  //Plantilla tomada de: https://mambaui.com/components/error
+  //Template from: https://mambaui.com/components/error
   return (
     <div>
       <section className="flex items-center h-full p-16 dark:bg-gray-900 dark:text-gray-100">

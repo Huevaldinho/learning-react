@@ -2,21 +2,20 @@ import { useContext, useState } from "react";
 import TaskContext from "../../context/TaskContext";
 
 function TaskCard({ task }) {
-  //Recibe un json con los datos de la tarea (task)
-  /*
-    task={title:value,description:value,id:value}
+  /**
+   * @param tasks: {title:value,description:value,id:value}
   */
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { deleteTask, editTask, tasks } = useContext(TaskContext); //para eliminar tarea, modificar y actualizar
+  const { deleteTask, editTask, tasks } = useContext(TaskContext); //To delete, update and rerender the tasks.
   const handleEditButton = (e) => {
-    //este boton tiene un problema, no actualiza con el primer click, hay que darle dos veces
+    //!handleEditButton error, does not update on the first click, does update on double click.
     editTask({
       id: task.id,
       title,
       description,
     });
-    console.log(tasks)
+    //console.log(tasks)
   };
   return (
     <div className="bg-gray-800 text-white p-4 rounded-md">

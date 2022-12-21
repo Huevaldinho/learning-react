@@ -5,9 +5,16 @@ import Login from "../../pages/Login";
 import SignUp from "../../pages/SignUp";
 
 function Router() {
+  /**
+   * This function is used to navegate through the different 
+   * pages of the website.
+   */
   return (
     <BrowserRouter>
       <Routes>
+        {/**
+         * Declare here all routes and subroutes of the website.
+         */}
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />

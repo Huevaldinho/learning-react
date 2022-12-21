@@ -3,14 +3,15 @@ import { TaskContext } from "../../context/TaskContext";
 function TaskForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  //Para poder agregar tareas al array tasks del contexto
-  const { createTask, deleteAllTasks } = useContext(TaskContext);
+  const { createTask, deleteAllTasks } = useContext(TaskContext);//To create and delete tasks.
 
-  //Funcion para manejar el submit de los datos del form
+  /**
+   * Function to handle the submit of the form
+   */
   const handleSubmit = (e) => {
-    e.preventDefault(); //para que no reinicie la pagina con el boton
-    createTask({ title, description }); //funcion del contexto para modificar las tasks
-    //Limpia titulo y descripcion despues de agregar la tarea
+    e.preventDefault(); //Prevent the page to refresh when clicking the button
+    createTask({ title, description }); //Context function to create a new task
+    //Clean the title and description after adding the task.
     setTitle("");
     setDescription("");
   };
@@ -23,7 +24,7 @@ function TaskForm() {
           className="bg-slate-300 p-3 w-full mb-2"
           placeholder="Escribe tu tarea"
           onChange={(e) => {
-            setTitle(e.target.value); //actualiza el estado del titulo con cada cambio
+            setTitle(e.target.value); //updates the title on change
           }}
           value={title}
           autoFocus
@@ -32,7 +33,7 @@ function TaskForm() {
           className="bg-slate-300 p-3 w-full mb-2"
           placeholder="Escribe la descripción de la tarea"
           onChange={(e) => {
-            setDescription(e.target.value); //actualiza el estado de la description con cada cambio
+            setDescription(e.target.value); //updates the description on change
           }}
           value={description}
         ></textarea>
