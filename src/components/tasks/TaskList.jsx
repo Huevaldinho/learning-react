@@ -15,8 +15,9 @@ function TaskList() {
   return (
     <div className="grid grid-cols-4 gap-2">
       {tasks.map((task) => (
-        /* Create card for every task, the key is for react to know that 
-        the component has a unique key to identificate.*/
+        //Keys help React identify which items have changed, are added, or are removed.
+        //A good rule of thumb is that elements inside the map() call need keys.
+        //Keys serve as a hint to React but they don’t get passed to your components.
         <TaskCard key={task.id} task={task} />
       ))}
     </div>
