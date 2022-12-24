@@ -1,10 +1,13 @@
-import Router  from "./components/routes/Router";
+import Router from "./components/routes/Router";
+import { TaskContextProvider } from "./context/TaskContext";
 
 function App() {
   return (
     <>
-      {/*Create the router component*/}
-      <Router/>
+      <TaskContextProvider>
+        {/*Create the router component*/}
+        <Router />
+      </TaskContextProvider>
     </>
   );
 }

@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import TaskContext from "../../context/TaskContext";
+import { TaskContext } from "../../context/TaskContext";
 
 function TaskCard({ task }) {
   /**
    * @param tasks: {title:value,description:value,id:value}
-  */
+   */
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { deleteTask, editTask, tasks } = useContext(TaskContext); //To delete, update and rerender the tasks.

@@ -1,9 +1,10 @@
 import { useState, useContext } from "react";
 import { TaskContext } from "../../context/TaskContext";
+
 function TaskForm() {
+  const { createTask, deleteAllTasks } = useContext(TaskContext); //To create and delete tasks.
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { createTask, deleteAllTasks } = useContext(TaskContext);//To create and delete tasks.
 
   /**
    * Function to handle the submit of the form
