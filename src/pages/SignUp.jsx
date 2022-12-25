@@ -4,7 +4,7 @@ function SignUp() {
   return (
     <div className="bg-zinc-900 min-h-screen flex flex-col">
       <div className="container m-10 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <form className="bg-slate-700 px-6 py-8 rounded-xl shadow-md text-black w-full">
+        <form className="bg-slate-800 px-6 py-8 rounded-xl shadow-md text-black w-full">
           <h1 className="mb-8 text-3xl text-center text-white">Sign up</h1>
           <input
             type="text"
