@@ -31,7 +31,7 @@ function TaskForm() {
         <h1 className="text-2xl font-bold text-white mb-3 text-center">Crea tu tarea</h1>
         <input
           className="bg-slate-300 p-3 w-full mb-2 rounded-lg"
-          placeholder="Nombre de tarea"
+          placeholder="Nombre de la tarea"
           onChange={(e) => {
             setTitle(e.target.value); //updates the title on change
           }}
