@@ -15,7 +15,8 @@ function Router() {
         {/**
          * Declare here all routes and subroutes of the website.
          */}
-        <Route index element={<Navigate to="/login" />} />
+        <Route index element={<Navigate to="/login" /> } />
+        <Route path='/login' element={<Login/>}></Route>
         <Route path="/main" element={<MainPage />} />
         
         <Route path="/signUp" element={<SignUp />} />
