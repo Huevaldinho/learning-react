@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 function NotFound() {
   //Template from: https://mambaui.com/components/error
   return (
