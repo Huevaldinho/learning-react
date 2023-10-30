@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import {getNotes} from '../../services/NoteServices'
 
 function TaskForm() {
   const { createTask, deleteAllTasks } = useContext(TaskContext); //To create and delete tasks.
@@ -16,6 +17,13 @@ function TaskForm() {
     setTitle("");
     setDescription("");
   };
+  const handleGetNotes =async (e)=>{
+    e.preventDefault();
+    getNotes(2);
+
+  }
+
+  
 
   return (
     <div className="max-w-md mx-auto bg-slate-800 m-10 rounded-lg">
@@ -48,6 +56,10 @@ function TaskForm() {
         onClick={deleteAllTasks}
       >
         Eliminar todas las tareas
+      </button>
+      <button className="bg-green-500 rounded-md  hover:bg-red-300 text-white mt-5 ml-4 mr-5 mb-4 p-2"
+      onClick={handleGetNotes}>
+        Pedir notas.
       </button>
     </div>
   );
