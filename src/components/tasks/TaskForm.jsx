@@ -28,9 +28,9 @@ function TaskForm() {
   return (
     <div className="max-w-md mx-auto bg-slate-800 m-10 rounded-lg">
       <form className="pt-10 pb-1 pr-10 pl-10 mb-4" onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold text-white mb-3">Crea tu tarea</h1>
+        <h1 className="text-2xl font-bold text-white mb-3 text-center">Crea tu tarea</h1>
         <input
-          className="bg-slate-300 p-3 w-full mb-2"
+          className="bg-slate-300 p-3 w-full mb-2 rounded-lg"
           placeholder="Escribe tu tarea"
           onChange={(e) => {
             setTitle(e.target.value); //updates the title on change
@@ -39,7 +39,7 @@ function TaskForm() {
           autoFocus
         ></input>
         <textarea
-          className="bg-slate-300 p-3 w-full mb-2"
+          className="bg-slate-300 p-3 w-full mb-2 rounded-lg"
           placeholder="Escribe la descripción de la tarea"
           onChange={(e) => {
             setDescription(e.target.value); //updates the description on change
