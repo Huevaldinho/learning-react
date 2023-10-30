@@ -11,5 +11,6 @@ Proyecto basado en el video del canal Fazt: https://youtu.be/rLoWMU4L_qE?si=jNoO
 - Se planea hostear en alguna nube.
 - Se planea migrar a Typescript para hacer la aplicación
 más segura.
+- Factorizar algunos componentes para hacerlos genericos (inputs, botones, etc).
 
 
