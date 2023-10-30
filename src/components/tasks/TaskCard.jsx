@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../../context/TaskContext";
 
-function TaskCard({ task }) {
+function TaskCard({ task }){
   /**
    * @param tasks: {title:value,description:value,id:value}
    */
@@ -10,13 +10,22 @@ function TaskCard({ task }) {
   const { deleteTask, editTask, tasks } = useContext(TaskContext); //To delete, update and rerender the tasks.
   const handleEditButton = (e) => {
     //!handleEditButton error, does not update on the first click, does update on double click.
+    e.preventDefault();
+    console.log("Task: ",task)
+    console.log("Title and descripcion: ",title,description)
     editTask({
       id: task.id,
       title,
       description,
     });
-    //console.log(tasks)
+    console.log(tasks)
   };
+  useEffect(() => {
+    setTitle(task.title);
+    setDescription(task.description)
+  }, [])
+  
+
   return (
     <div className="bg-gray-800 text-white p-4 rounded-md">
       <h1
@@ -64,6 +73,7 @@ function TaskCard({ task }) {
         className="text-white font-bold capitalize bg-blue-500 hover:bg-blue-200 p-2 m-2 rounded-md text-left"
         onClick={handleEditButton}
       >
+        <img src={NuevoSVG} alt="Editar" className="w-5 h-5" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

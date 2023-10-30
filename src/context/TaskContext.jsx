@@ -39,9 +39,12 @@ export function TaskContextProvider(props) {
    * @param description: New description to be updated.
    */
   function editTask({ id, title, description }) {
+    
     setTasks(
       tasks.map((task) => {
+        
         if (task.id === id) {
+          console.log("Edit task context function: ",title,description)
           return { ...task, title, description }; //...task updates the title and description of the object (merge)
         }
         return task;
