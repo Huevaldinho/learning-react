@@ -11,7 +11,7 @@ Proyecto basado en el video del canal Fazt: https://youtu.be/rLoWMU4L_qE?si=jNoO
 # To Dos
 - Se planea migrar a Typescript para hacer la aplicación
 más segura.
-- Factorizar etiquetas genericas. Por ejemplo, tener un componente boton que sea 
-configurable por props.
+- Factorizar componentes genericos. Por ejemplo, tener un componente botón que sea 
+configurable por medio de props, de modo que, el boton se pueda reutilizar.
 
 
