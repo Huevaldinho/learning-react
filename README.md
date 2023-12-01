@@ -4,7 +4,6 @@ Proyecto basado en el video del canal Fazt: https://youtu.be/rLoWMU4L_qE?si=jNoO
 
 - Se agregó la funcionalidad de modificar las notas.
 - BackEnd: Falta hostearlo.
-- DB: Falta hostearla.
 - Se hosteo en Netlify.
 
 
