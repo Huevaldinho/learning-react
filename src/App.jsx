@@ -5,7 +5,6 @@ function App() {
   return (
     <>
       <TaskContextProvider>
-        {/*Create the router component*/}
         <Router />
       </TaskContextProvider>
     </>

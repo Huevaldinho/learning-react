@@ -1,44 +1,65 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { createUser } from "../services/UserServices";
 
 function SignUp() {
+
   const userRef = useRef();
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassoword] = useState("");
-  const [password2, setPassoword2] = useState("");
-  //When the component loads, focus the email input.
+  const [showPasswordWarning, setShowPasswordWarning] = useState(false);
+  const [form, setForm] = useState({
+    fullName: null,
+    email: null,
+    password: null,
+    password2: null
+  }); 
+  
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   //To handle the form submit
   const handleSubmit = async (e) => {
-    e.preventDefault(); //Prevent the page to refresh when clicking the button
-    //Use a module to handle the login session?
-    //Use an API to compare with the db
-    console.log("Registered");
-    setEmail("");
-    setPassoword("");
-    setPassoword2("");
+    e.preventDefault();
+    if (form.password !== form.password2) {
+      setShowPasswordWarning(true);
+      return;
+    }
+    setShowPasswordWarning(false);
+    const res = await createUser( { ...form });
+    //!TODO: Convertir esto a un modal o algo bonito.
+    if (res.status===201){
+      alert("User created successfully");
+    }else if (res.status===400){
+      alert("User already exists");
+    }else{
+      alert("Something went wrong");
+    }  
+    //!TODO: Guardar datos de usuario (Redux o Context) o usar JWT para autenticar.
+    //window.location = "/login";
   };
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({ ...prevForm, [name]: value }));
+  };
+
   return (
     <div className="bg-zinc-900 min-h-screen flex flex-col">
       <div className="container m-10 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <form className="bg-slate-800 px-6 py-8 rounded-xl shadow-md text-black w-full"
-          onSubmit={handleSubmit}>
+        <form
+          className="bg-slate-800 px-6 py-8 rounded-xl shadow-md text-black w-full"
+          onSubmit={handleSubmit}
+        >
           <h1 className="mb-8 text-3xl text-center text-white">Sign up</h1>
           <input
             type="text"
             className="block border border-grey-light w-full p-3 rounded mb-4"
-            name="fullname"
+            name="fullName"
             placeholder="Full Name"
             required
             ref={userRef}
-            value={fullName}
-            onChange={(e) => {
-              setFullName(e.target.value);
-            }}
+            value={form.fullName}
+            onChange={handleChange}
             autoComplete="off"
           />
           <input
@@ -47,10 +68,10 @@ function SignUp() {
             name="email"
             placeholder="Email"
             required
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            value={form.email}
+            onChange={handleChange}
+            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+            title="Please enter a valid email address"
           />
 
           <input
@@ -59,19 +80,23 @@ function SignUp() {
             name="password"
             placeholder="Password"
             required
-            value={password}
-            onChange={(e)=>{setPassoword(e.target.value)}}
+            value={form.password}
+            onChange={handleChange}
           />
           <input
             type="password"
             className="block border border-grey-light w-full p-3 rounded mb-4"
-            name="confirm_password"
+            name="password2"
             placeholder="Confirm Password"
             required
-            value={password2}
-            onChange={(e)=>{setPassoword2(e.target.value)}}
+            value={form.password2}
+            onChange={handleChange}
           />
-
+          {showPasswordWarning && (
+            <p className="text-red-500 text-xs italic text-center p-1 mb-2">
+              Passwords do not match.
+            </p>
+          )}
           <button
             type="submit"
             className="w-full text-center py-3 bg-blue-500
