@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import {loginService} from '../../../services/UserServices';
+import { useNavigate } from "react-router-dom";
+
+import { loginService } from "../../../services/UserServices";
+import FooterLogin from "../components/footerLogin";
+import AlertLogin from "../components/alertLogin";
 
 function Login() {
   const userRef = useRef();
+  const navigate = useNavigate();
+  const [logInfo, setLogInfo] = useState({
+    invalidUser: false,
+    error: false,
+  });
   const [email, setEmail] = useState("");
   const [password, setPassoword] = useState("");
 
@@ -13,22 +21,45 @@ function Login() {
   }, []);
 
   //To handle the form submit
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault(); //Prevent the page to refresh when clicking the button
     //Use a module to handle the login session?
     //Use an API to compare with the db
-    console.log('Submited')
-    loginService(email,password);
+    console.log("Submited");
+    let statusResponse = await loginService(email, password);
+    if (statusResponse === 200) {
+      setEmail("");
+      setPassoword("");
+      setLogInfo((logInfo) => ({
+        ...logInfo,
+        invalidUser: false,
+        error: false,
+      }));
+      navigate("/main");
+    } else if (statusResponse === 401) {
+      console.log("Wrong credentials");
+      setLogInfo((logInfo) => ({
+        ...logInfo,
+        invalidUser: true,
+        error: false,
+      }));
+    } else if (statusResponse === 500) {
+      console.log("Server error");
+      setLogInfo((logInfo) => ({
+        ...logInfo,
+        invalidUser: false,
+        error: true,
+      }));
+    }
+  };
 
-
-    setEmail('')
-    setPassoword('')
-  }
   return (
     <div className="bg-zinc-900 min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto m-10 flex-1 flex flex-col items-center justify-center px-2">
-        <form className="bg-slate-800 px-6 py-8 rounded-xl shadow-md text-black w-full"
-              onSubmit={handleSubmit}>
+        <form
+          className="bg-slate-800 px-6 py-8 rounded-xl shadow-md text-black w-full"
+          onSubmit={handleSubmit}
+        >
           <h1 className="mb-8 text-3xl text-center text-white">Login</h1>
           <label htmlFor="email" className="text-white mb-1">
             Email:
@@ -66,33 +97,12 @@ function Login() {
           >
             Login
           </button>
-
-          <div className="text-center text-sm text-white mt-4">
-            By signing up, you agree to the&nbsp;
-            <Link
-              className="no-underline border-b border-grey-dark text-white hover:text-blue-500"
-              to="#"
-            >
-              Terms of Service
-            </Link>{" "}
-            and&nbsp;
-            <Link
-              className="no-underline border-b border-grey-dark text-grey-dark hover:text-blue-500"
-              to="#"
-            >
-              Privacy Policy
-            </Link>
-          </div>
-          <div className="text-white mt-6 text-center">
-            Don't have an account?&nbsp;
-            <Link
-              className="underline border-b border-blue text-blue hover:text-blue-500 text-white"
-              to="/signUp"
-            >
-              Sign Up
-            </Link>
-            .
-          </div>
+          <AlertLogin
+            className="text-center p-2 m-2"
+            invalidUser={logInfo.invalidUser}
+            error={logInfo.error}
+          />
+          <FooterLogin />
         </form>
       </div>
     </div>

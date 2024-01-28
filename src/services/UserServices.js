@@ -33,13 +33,12 @@ export const createUser = async (user) => {
 /**
  * Metodo para iniciar sesión.
  * @param {email:String,password:string} User: User to be authenticated.
- * @returns {accessToken:string, refreshToken:string} tokens: Tokens to be used in the session.
+ * @returns {200: User authenticated | 401: User not authenticated. | 500: Internal server error.}
  */
 
 export const loginService = async (email, password) => {//TODO: usar env para url
     try {
-
-        // Send a POST request
+        //Peticion de login a la api
         const response = await axios({
             method: 'post',
             url: 'http://localhost:3000/api/users/login',
@@ -52,14 +51,12 @@ export const loginService = async (email, password) => {//TODO: usar env para ur
             console.log("usuario logueado", response.data)
             localStorage.setItem("accessToken", response.data.accessToken);
             localStorage.setItem("refreshToken", response.data.refreshToken);
+            return response.status;
         }
     } catch (error) {
-        if (error.response.status === 401) {
-            console.log("Error al autenticar el usuario:", error.response.data.message)
-        } else if (error.response.status === 500) {
-            console.log("Error:", error.response.data.message)
-        }
+        return error.response.status;
     }
+
 };
 
 

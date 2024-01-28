@@ -5,12 +5,12 @@ import AlertSignUp from "../components/alertSignUp";
 import FooterSignUp from "../components/footerSignUp";
 
 function SignUp() {
+  const userRef = useRef();
   const [logInfo, setLogInfo] = useState({
     logged: false,
     repeated: false,
     error: false,
   });
-  const userRef = useRef();
   const [showPasswordWarning, setShowPasswordWarning] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
@@ -32,7 +32,6 @@ function SignUp() {
     }
     setShowPasswordWarning(false);
     const res = await createUser({ ...form });
-    //!TODO: Convertir esto a un modal o algo bonito.
     if (res.status === 201) {
       setLogInfo((logInfo) => ({
         ...logInfo,
