@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import {loginService} from '../../../services/UserServices';
 
 function Login() {
   const userRef = useRef();
@@ -17,6 +18,9 @@ function Login() {
     //Use a module to handle the login session?
     //Use an API to compare with the db
     console.log('Submited')
+    loginService(email,password);
+
+
     setEmail('')
     setPassoword('')
   }
@@ -60,7 +64,7 @@ function Login() {
             className="w-full text-center py-3 bg-blue-500
             rounded bg-green text-white hover:bg-blue-300 focus:outline-none my-1"
           >
-            Create Account
+            Login
           </button>
 
           <div className="text-center text-sm text-white mt-4">

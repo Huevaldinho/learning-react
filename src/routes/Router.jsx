@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route,Navigate} from "react-router-dom";
-import MainPage from "../../pages/MainPage";
-import NotFound from "../../pages/NotFound";
-import Login from "../../pages/Login";
-import SignUp from "../../pages/SignUp";
+import MainPage from "../pages/MainPage";
+import NotFound from "../pages/NotFound";
+import Login from "../components/auth/pages/Login";
+import SignUp from "../components/auth/pages/SignUp";
 
 function Router() {
   /**

@@ -1,4 +1,4 @@
-import Router from "./components/routes/Router";
+import Router from "./routes/Router";
 import { TaskContextProvider } from "./context/TaskContext";
 
 function App() {

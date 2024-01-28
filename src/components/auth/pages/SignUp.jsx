@@ -1,18 +1,24 @@
-import { Link } from "react-router-dom";
+
 import { useState, useEffect, useRef } from "react";
-import { createUser } from "../services/UserServices";
+import { createUser } from "../../../services/UserServices";
+import AlertSignUp from "../components/alertSignUp";
+import FooterSignUp from "../components/footerSignUp";
 
 function SignUp() {
-
+  const [logInfo, setLogInfo] = useState({
+    logged: false,
+    repeated: false,
+    error: false,
+  });
   const userRef = useRef();
   const [showPasswordWarning, setShowPasswordWarning] = useState(false);
   const [form, setForm] = useState({
-    fullName: null,
-    email: null,
-    password: null,
-    password2: null
-  }); 
-  
+    fullName: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -25,19 +31,34 @@ function SignUp() {
       return;
     }
     setShowPasswordWarning(false);
-    const res = await createUser( { ...form });
+    const res = await createUser({ ...form });
     //!TODO: Convertir esto a un modal o algo bonito.
-    if (res.status===201){
-      alert("User created successfully");
-    }else if (res.status===400){
-      alert("User already exists");
-    }else{
-      alert("Something went wrong");
-    }  
+    if (res.status === 201) {
+      setLogInfo((logInfo) => ({
+        ...logInfo,
+        logged: true,
+        repeated: false,
+        error: false,
+      }));
+    } else if (res.status === 400) {
+      setLogInfo((logInfo) => ({
+        ...logInfo,
+        repeated: true,
+        error: false,
+        logged: false,
+      }));
+    } else {
+      setLogInfo((logInfo) => ({
+        ...logInfo,
+        error: true,
+        logged: false,
+        repeated: false,
+      }));
+    }
     //!TODO: Guardar datos de usuario (Redux o Context) o usar JWT para autenticar.
     //window.location = "/login";
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -104,33 +125,13 @@ function SignUp() {
           >
             Create Account
           </button>
-
-          <div className="text-center text-sm text-white mt-4">
-            By signing up, you agree to the&nbsp;
-            <Link
-              className="no-underline border-b border-grey-dark text-white hover:text-blue-500"
-              to="#"
-            >
-              Terms of Service
-            </Link>{" "}
-            and&nbsp;
-            <a
-              className="no-underline border-b border-grey-dark text-grey-dark hover:text-blue-500"
-              href="#"
-            >
-              Privacy Policy
-            </a>
-          </div>
-          <div className="text-white mt-6 text-center">
-            Already have an account?&nbsp;
-            <Link
-              className="underline border-b border-blue text-blue hover:text-blue-500 text-white"
-              to="/login"
-            >
-              Log in
-            </Link>
-            .
-          </div>
+          <AlertSignUp
+            className="text-center p-2 m-2"
+            logged={logInfo.logged}
+            repeated={logInfo.repeated}
+            error={logInfo.error}
+          />
+          <FooterSignUp />
         </form>
       </div>
     </div>
