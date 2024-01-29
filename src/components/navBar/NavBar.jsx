@@ -1,9 +1,13 @@
+
+import {logout} from '../../services/auth.services';
+
 function Navbar(props) {
   const divBtnContainer = "flex-shrink-0 rounded-xl  w-fit h-fit p-5";
   const btnSytle =
     "text-center w-full h-full shadow-2xl rounded-md hover:rounded-lg p-4";
-  const handleClose = (e) => {
+  const handleClose = async (e) => {
     e.preventDefault();
+    await logout();
     // Reemplaza la entrada actual del historial y redirige a la página de inicio
     window.history.replaceState(null, null, "/login");
     window.location.href = "/login";

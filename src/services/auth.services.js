@@ -26,7 +26,7 @@ export const signUpService = async (user) => {
             return response.status;
         }
     } catch (error) {
-        console.error("Error: ",error.response.data.message);
+        console.error("Error: ", error.response.data.message);
         return error.response.status;
     }
 };
@@ -60,4 +60,30 @@ export const loginService = async (email, password) => {//TODO: usar env para ur
     }
 };
 
+export const logout = async () => {
+    let token = localStorage.getItem("refreshToken");
+    if (!token) {
+        token = "";
+    }
+    console.log("refreshToken: ",token)
 
+    const data = JSON.stringify({ "token": token });
+
+    const config = {
+        method: 'delete',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:4000/logout', // Cambia esto según la URL correcta
+        headers: { 'Content-Type': 'application/json' },
+        data: data
+    };
+
+    try {
+        await axios.request(config);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        return;
+    } catch (error) {
+        console.error("Error: ", error);
+        return;
+    }
+}
