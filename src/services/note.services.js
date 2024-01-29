@@ -13,3 +13,5 @@ export async function getNotes(idUser) {
   await console.log(response);
   return await response;
 }
+
+

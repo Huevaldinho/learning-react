@@ -1,14 +1,15 @@
 
 import { useState, useEffect, useRef } from "react";
-import { createUser } from "../../../services/UserServices";
+import { useNavigate } from "react-router-dom";
+import {signUpService} from "../../../services/auth.services";
 import AlertSignUp from "../components/alertSignUp";
 import FooterSignUp from "../components/footerSignUp";
 
 function SignUp() {
   const userRef = useRef();
+  const navigate = useNavigate();
   const [logInfo, setLogInfo] = useState({
-    logged: false,
-    repeated: false,
+    invalidUser: false,
     error: false,
   });
   const [showPasswordWarning, setShowPasswordWarning] = useState(false);
@@ -31,27 +32,28 @@ function SignUp() {
       return;
     }
     setShowPasswordWarning(false);
-    const res = await createUser({ ...form });
-    if (res.status === 201) {
+    let res = await signUpService({ ...form });
+    if (res == 201) {
       setLogInfo((logInfo) => ({
         ...logInfo,
-        logged: true,
-        repeated: false,
+        invalidUser: false,
         error: false,
       }));
-    } else if (res.status === 400) {
+      console.log("Deberia redireccionar:")
+      navigate("/main");
+    } else if (res == 400) {
       setLogInfo((logInfo) => ({
         ...logInfo,
-        repeated: true,
+        invalidUser: true,
         error: false,
-        logged: false,
       }));
     } else {
+      console.log(res)
+      console.log("Else del signup")
       setLogInfo((logInfo) => ({
         ...logInfo,
+        invalidUser: false,
         error: true,
-        logged: false,
-        repeated: false,
       }));
     }
     //!TODO: Guardar datos de usuario (Redux o Context) o usar JWT para autenticar.
@@ -126,8 +128,7 @@ function SignUp() {
           </button>
           <AlertSignUp
             className="text-center p-2 m-2"
-            logged={logInfo.logged}
-            repeated={logInfo.repeated}
+            invalidUser={logInfo.invalidUser}
             error={logInfo.error}
           />
           <FooterSignUp />

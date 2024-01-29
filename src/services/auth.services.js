@@ -3,32 +3,34 @@ import axios from "axios";
 /**
  * Metodo para crear un usuario.
  * @param {email:String,fullname:String,password:string} User: User to be created.
- * @returns {email:String,fullName:String,_id:String} newUser: User created.
+ * @returns number: 201: User created | 400: Bad request: user repeated| 500: Internal server error.
  */
-export const createUser = async (user) => {
+export const signUpService = async (user) => {
     try {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-            "email": user.email,
-            "fullName": user.fullName,
-            "password": user.password
+        //Peticion de login a la api
+        const response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/api/auth/signup',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                "email": user.email,
+                "fullName": user.fullName,
+                "password": user.password
+            }
         });
-
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        return await fetch("http://localhost:3000/api/users/", requestOptions);
-
+        if (response.status === 201) {
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+            return response.status;
+        }
     } catch (error) {
-        console.error('error', error);
+        console.error("Error: ",error.response.data.message);
+        return error.response.status;
     }
 };
+
 
 /**
  * Metodo para iniciar sesión.
@@ -41,7 +43,7 @@ export const loginService = async (email, password) => {//TODO: usar env para ur
         //Peticion de login a la api
         const response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/api/users/login',
+            url: 'http://localhost:3000/api/auth/login',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -56,7 +58,6 @@ export const loginService = async (email, password) => {//TODO: usar env para ur
     } catch (error) {
         return error.response.status;
     }
-
 };
 
 

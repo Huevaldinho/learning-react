@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { TaskContext } from "../../context/TaskContext";
-import {getNotes} from '../../services/NoteServices'
+import {getNotes} from '../../services/note.services'
 
 function TaskForm() {
   const { createTask, deleteAllTasks } = useContext(TaskContext); //To create and delete tasks.

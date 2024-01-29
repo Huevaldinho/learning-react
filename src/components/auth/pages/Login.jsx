@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { loginService } from "../../../services/UserServices";
+import { loginService } from "../../../services/auth.services";
 import FooterLogin from "../components/footerLogin";
 import AlertLogin from "../components/alertLogin";
 
